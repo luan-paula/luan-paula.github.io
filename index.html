@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luan de Paula — Engenharia de Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090B;--surf:#111113;--code:#0D0D10;--line:#27272A;--t:#F4F4F5;--t2:#A1A1AA;--t3:#71717A;--g:#10B981;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg) radial-gradient(60% 280px at 50% 0,rgba(255,255,255,.03),transparent) no-repeat;color:var(--t);font:400 16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--t2);outline-offset:3px;border-radius:4px}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.wrap{max-width:56rem;margin:0 auto;padding:0 24px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(9,9,11,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(39,39,42,.8)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(9,9,11,.85);backdrop-filter:blur(10px);z-index:10}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
+.brand{font-weight:500;white-space:nowrap}.brand span{color:var(--t3);font-size:12px;margin-left:8px}
+nav{display:flex;gap:20px;font-size:13px;color:var(--t2)}
+nav a:hover,.right a:hover{color:var(--t)}
+.right{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--t2)}
+.lang{font-size:12px;background:none;border:0;color:var(--t3);cursor:pointer;padding:2px}
+.lang b{color:var(--t);font-weight:500}
+@media(max-width:760px){nav,.right a{display:none}}
+section{padding:72px 0 8px}
+h1{font-size:clamp(2.1rem,5vw,3rem);font-weight:600;letter-spacing:-.03em;line-height:1.12;margin:20px 0 0}
+h2{font-size:1.5rem;font-weight:600;letter-spacing:-.03em;margin:0 0 8px}
+.sub{color:var(--t2);max-width:42rem;margin:0}
+.status{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--t2)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--g);box-shadow:0 0 0 0 rgba(16,185,129,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+@media(prefers-reduced-motion:reduce){.dot{animation:none}html{scroll-behavior:auto}}
+.hero{padding-top:64px}
+.hero .sub{font-size:1.1rem;color:var(--t2);margin-top:20px;line-height:1.65}
+.meta{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;border-block:1px solid rgba(39,39,42,.8);padding:16px 0;margin:32px 0}
+@media(min-width:768px){.meta{grid-template-columns:repeat(4,1fr)}}
+.meta dt{font-size:11px;color:var(--t3);letter-spacing:.04em}.meta dd{margin:4px 0 0;font-size:14px;color:var(--t)}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{font:500 14px Inter,sans-serif;padding:8px 16px;border-radius:6px;cursor:pointer;display:inline-block}
+.btn.p{background:var(--t);color:#09090B;border:1px solid var(--t)}.btn.p:hover{background:#fff}
+.btn.s{background:none;border:1px solid var(--line);color:#D4D4D8;font:400 13px 'JetBrains Mono',monospace}.btn.s:hover{border-color:#52525B}
+.rows{border-block:1px solid rgba(39,39,42,.8);margin-top:28px}
+.row{display:grid;gap:16px;padding:28px 0;align-items:baseline}.row+.row{border-top:1px solid rgba(39,39,42,.8)}
+@media(min-width:768px){.row{grid-template-columns:repeat(12,1fr)}.row .a{grid-column:span 4}.row .b{grid-column:span 5}.row .c{grid-column:span 3}}
+.row .a strong{font-weight:500;display:block}.row .a small{font-size:12px;color:var(--t3)}
+.row .b{font-size:14px;color:var(--t2)}.row .c{font-size:12px;color:#D4D4D8;display:flex;flex-wrap:wrap;gap:4px 12px}
+.win{background:var(--code);border:1px solid rgba(39,39,42,.9);border-radius:8px;overflow:hidden;margin-top:28px}
+.tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--surf)}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;color:var(--t3);font:400 12px 'JetBrains Mono',monospace;padding:12px 16px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected=true]{color:var(--t);border-bottom-color:var(--t)}
+.file{font-size:12px;color:var(--t3);padding:12px 16px 0}
+pre{margin:0;padding:12px 16px 20px;overflow-x:auto;font:400 13px/1.7 'JetBrains Mono',monospace;color:#E4E4E7;tab-size:4}
+.cm{color:var(--t3)}
+.foot{display:grid;gap:12px;padding:14px 16px;border-top:1px solid var(--line);background:var(--surf);font-size:12px;color:var(--t2)}
+@media(min-width:768px){.foot{grid-template-columns:1fr 1fr 2fr}}
+.foot span{display:block;color:var(--t3);margin-bottom:2px}
+.foot i{font-style:normal;color:var(--g)}
+.gh{margin-top:40px}.gh h3{font-size:1rem;font-weight:500;margin:0 0 12px}
+.repo{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid rgba(39,39,42,.8);font-size:14px}
+.repo:last-of-type{border-bottom:1px solid rgba(39,39,42,.8)}.repo:hover{color:#fff}.repo span{color:var(--t3);font-size:12px}
+.more{display:inline-block;margin-top:14px;font-size:13px;color:var(--t2)}.more:hover{color:var(--t)}
+.job{display:grid;gap:8px;padding:24px 0;border-bottom:1px solid #18181B}
+@media(min-width:768px){.job{grid-template-columns:160px 1fr;gap:32px}}
+.job time{font-size:12px;color:var(--t3);padding-top:4px}
+.co{color:var(--t2);font-size:14px}.co b{color:var(--t);font-weight:500;font-size:16px;display:block}
+.role{position:relative;margin-top:16px;padding-left:20px;border-left:1px solid var(--line)}
+.role::before{content:"";position:absolute;left:-4px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--t3)}
+.role:first-of-type::before{background:var(--t)}
+.role h4{margin:0;font-weight:500;font-size:15px}.role h4 span{color:var(--t3);font:400 12px 'JetBrains Mono',monospace;margin-left:8px}
+.role p{margin:4px 0 0;font-size:14px;color:var(--t2)}
+.two{display:grid;gap:40px;margin-top:28px}
+@media(min-width:768px){.two{grid-template-columns:1fr 1fr;gap:0}.two>div:first-child{padding-right:40px;border-right:1px solid var(--line)}.two>div:last-child{padding-left:40px}}
+.it{padding:16px 0;border-top:1px solid rgba(39,39,42,.8)}.it:first-of-type{border-top:0;padding-top:0}
+.it small{font-size:12px;color:var(--t3)}.it strong{display:block;font-weight:500;margin:2px 0}.it p{margin:2px 0 0;font-size:14px;color:var(--t2)}
+footer{margin-top:72px;border-top:1px solid var(--line);padding:32px 0 48px}
+footer p{margin:0 0 20px;color:var(--t2);max-width:36rem;font-size:15px}
+.fl{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;font-size:13px;color:var(--t2)}.fl a:hover{color:var(--t)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--t);color:#09090B;font-size:13px;padding:8px 14px;border-radius:6px;opacity:0;pointer-events:none;transition:.2s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="#overview">Luan de Paula<span class="mono">· UTFPR</span></a>
+  <nav id="nav"></nav>
+  <div class="right"><button class="lang mono" id="lang" aria-label="Idioma / Language"></button>
+    <a href="https://github.com/luan-paula" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="https://www.linkedin.com/in/luan-paula" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+</div></header>
+
+<main class="wrap">
+<section id="overview" class="hero">
+  <div class="status mono"><i class="dot"></i><span id="status"></span></div>
+  <h1 id="title"></h1>
+  <p class="sub" id="subtitle"></p>
+  <dl class="meta" id="meta"></dl>
+  <div class="btns"><a class="btn p" href="#work" id="cta1"></a><button class="btn s" id="cta2"></button></div>
+</section>
+
+<section id="engineering"><h2 id="h-eng"></h2><div class="rows" id="domains"></div></section>
+
+<section id="work">
+  <h2 id="h-work"></h2><p class="sub" id="s-work"></p>
+  <div class="win">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="file mono" id="file"></div>
+    <pre><code id="code"></code></pre>
+    <div class="foot" id="tfoot"></div>
+  </div>
+  <div class="gh"><h3 id="gh-t"></h3><div id="repos" class="mono" style="font-size:12px;color:var(--t3)"></div>
+    <a class="more" id="gh-all" href="https://github.com/luan-paula" target="_blank" rel="noopener"></a></div>
+</section>
+
+<section id="experience"><h2 id="h-exp"></h2><div id="jobs" style="margin-top:20px;border-top:1px solid #18181B"></div></section>
+
+<section id="contact"><h2 id="h-edu"></h2><div class="two"><div id="edu"></div><div id="cred"></div></div></section>
+</main>
+
+<footer><div class="wrap">
+  <p id="f-cta"></p>
+  <div class="fl"><span id="f-loc"></span>
+    <button class="btn s" id="cta3"></button>
+    <a href="https://github.com/luan-paula" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="https://www.linkedin.com/in/luan-paula" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="https://wa.me/5542984056782" target="_blank" rel="noopener">WhatsApp ↗</a></div>
+</div></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const EMAIL="luandp2008@gmail.com";
+const CODE={
+python:`import pandas as pd
+from pathlib import Path
+
+def reconcile_operational_records(source_csv: Path) -> pd.DataFrame:
+    df = pd.read_csv(source_csv, dtype=str)
+
+    # Deterministic normalization and critical deduplication
+    df['process_id'] = df['process_id'].str.strip().str.upper()
+    df = df.dropna(subset=['process_id', 'status']).drop_duplicates(subset=['process_id'])
+
+    # Aggregation for cross-department bottleneck monitoring
+    summary = (
+        df.groupby(['department', 'status'], as_index=False)
+          .agg(total_cases=('process_id', 'count'))
+          .sort_values(by='total_cases', ascending=False)
+    )
+    return summary`,
+java:`public final class ProjectAllocationService {
+    private final ProjectRepository repository;
+
+    public ProjectAllocationService(ProjectRepository repository) {
+        this.repository = repository;
+    }
+
+    public AllocationResult assignDeliverable(UUID projectId, DeliverableSpec spec) {
+        Project project = repository.findById(projectId)
+            .orElseThrow(() -> new EntityNotFoundException("Project not found: " + projectId));
+
+        if (!project.canAcceptDeliverable(spec.estimatedHours())) {
+            return AllocationResult.rejected("Scope capacity exceeded for current sprint.");
+        }
+
+        project.registerDeliverable(spec);
+        repository.save(project);
+        return AllocationResult.confirmed(project.getId(), spec.code());
+    }
+}`,
+algo:`def min_max_workload(tasks: list[int], workers: int) -> int:
+    # Greedy O(N) check: is it feasible under capacity 'cap'?
+    def can_schedule(cap: int) -> bool:
+        needed, current = 1, 0
+        for cost in tasks:
+            if current + cost > cap:
+                needed += 1
+                current = cost
+            else:
+                current += cost
+        return needed <= workers
+
+    low, high = max(tasks), sum(tasks)
+    while low < high:
+        mid = (low + high) // 2
+        if can_schedule(mid):
+            high = mid
+        else:
+            low = mid + 1
+    return low`};
+const X={ // per-tab technical footer
+python:{c:"O(N log N)",p:{pt:"Vetorização declarativa (pandas)",en:"Declarative vectorization (pandas)"}},
+java:{c:"O(1)",p:{pt:"POO · injeção de dependência",en:"OOP · dependency injection"}},
+algo:{c:"O(N log Σw)",p:{pt:"Busca binária na resposta + guloso",en:"Binary search on answer + greedy"}}};
+const L={
+pt:{html:"pt-BR",nav:["Visão Geral","Engenharia","Código","Trajetória","Contato"],
+ status:"Disponível para Estágio em Engenharia de Software / Backend",
+ title:"Engenharia de software backend, automação de processos e resolução algorítmica.",
+ sub:"Graduando em Sistemas de Informação na UTFPR e Assessor de Projetos na Hï Tech Consultoria. Focado no desenvolvimento de sistemas estruturados em Java e Python, modelagem SQL e otimização de fluxos operacionais.",
+ meta:[["UNIVERSIDADE","UTFPR · Sistemas de Informação"],["EMPRESA JÚNIOR","Hï Tech · Assessor de Projetos"],["STACK CORE","Java, Python, SQL, Git"],["BASE ANALÍTICA","OBMEP & Clube de Programação"]],
+ cta1:"Explorar Arquitetura & Código",cta2:"Copiar E-mail",copied:"Copiado para a área de transferência",
+ hEng:"Domínios de Engenharia",
+ dom:[["Desenvolvimento Backend","Arquitetura & Persistência","Desenvolvimento de aplicações orientadas a objetos com foco em código limpo, separação de responsabilidades, modelagem de bancos de dados relacionais e controle de versão estruturado.",["Java","SQL Relacional","POO / Design Patterns","APIs REST","Git & GitHub"]],
+ ["Automação & Engenharia de Dados","Pipelines & Eficiência Operacional","Criação de scripts e ferramentas em Python para substituir rotinas manuais repetitivas, higienizar grandes volumes documentais e gerar relatórios analíticos confiáveis.",["Python","Pandas","Automação de Fluxos","ETL / Relatórios","Integrações de IA"]],
+ ["Algoritmos & Estruturas de Dados","Clube de Programação UTFPR (CdP)","Prática contínua de programação competitiva e análise de complexidade assintótica para resolver problemas computacionais sob limites estritos de tempo e memória.",["Busca Binária","Algoritmos Gulosos","Complexidade Big-O","Lógica Olímpica (OBMEP)"]]],
+ hWork:"Anatomia Técnica & Resolução de Problemas",sWork:"Exemplos práticos de implementação combinando modelagem de domínio, automação de dados e otimização algorítmica.",
+ tabs:{python:["Automação & Dados (Python)","Padronização e auditoria automatizada de registros operacionais em lote.","Redução de rotinas manuais repetitivas via validação vetorizada"],
+  java:["Backend & SQL (Java)","Isolamento de regras de negócio e persistência relacional segura com JDBC/SQL.","Arquitetura desacoplada com queries parametrizadas e POO"],
+  algo:["Otimização Algorítmica (CdP)","Busca Binária no Espaço de Respostas para alocação ótima de carga em tempo O(N log S).","Complexidade reduzida de O(N²) para O(N log(Σw))"]},
+ fc:"Complexidade",fp:"Paradigma Aplicado",fx:"Contexto Prático",
+ ghT:"Repositórios Públicos Recentes",ghAll:"Ver perfil completo no GitHub ↗",ghLoad:"Sincronizando repositórios públicos via GitHub API...",ghFall:"Explore os projetos e o histórico completo no perfil.",
+ hExp:"Trajetória Profissional",
+ exp:[["Out 2026 — Presente","Hï Tech Consultoria","Empresa Júnior da UTFPR · Curitiba, PR",[["Assessor de Projetos","Nov 2026 — Presente","Planejamento, levantamento de requisitos técnicos e acompanhamento de soluções de software entregues pela empresa júnior. Atuação direta com versionamento, documentação técnica, rituais Scrum e interface entre clientes e o núcleo de desenvolvimento. Representante da EJ em imersões do Núcleo Curitiba (CwbJr)."],["Trainee de Projetos","Out 2026 — Nov 2026","Capacitação intensiva em metodologias ágeis, estruturação de escopo e cronograma, mapeamento de dores de clientes e validação de propostas técnicas."]]],
+ ["Jan 2026 — Presente","OAB PR","Curitiba, PR · Presencial",[["Assistente Administrativo (Jovem Aprendiz)","","Estruturação de bases de dados e produção de relatórios operacionais para monitoramento de processos internos. Padronização de fluxos digitais de alto volume documental com foco em integridade de dados e eficiência entre departamentos."]]]],
+ hEdu:"Formação & Reconhecimentos",
+ edu:[["2026 — 2030","Bacharelado em Sistemas de Informação","Universidade Tecnológica Federal do Paraná (UTFPR)","Foco em Engenharia de Software, Desenvolvimento Backend e Arquitetura de Sistemas. Integrante da Hï Tech Consultoria e do Clube de Programação da UTFPR (CdP)."],
+ ["2023 — 2024","Técnico em Mecatrônica, Robótica e Automação","SENAI PR","Formação técnica integrando lógica de programação, controle de processos, sistemas embarcados e resolução analítica de problemas."]],
+ cred:[["IMPA · MEC · MCTI (2025)","Menção Honrosa — 20ª Olimpíada Brasileira de Matemática (OBMEP)","Reconhecimento nacional por desempenho em raciocínio lógico-matemático e resolução de problemas complexos."],
+ ["Proficiência Internacional (Maio 2026)","Inglês Profissional — Duolingo English Test (Score 130)","Fluência para leitura de documentação técnica, comunicação escrita e colaboração em equipes globais de engenharia."]],
+ fcta:"Disponível para estágio em Engenharia de Software, Backend ou Automação em Curitiba (Presencial/Híbrido) ou Remoto.",floc:"Curitiba, Paraná — Brasil"},
+en:{html:"en",nav:["Overview","Engineering","Code","Experience","Contact"],
+ status:"Available for Software Engineering / Backend Internship",
+ title:"Backend software engineering, workflow automation, and algorithmic problem-solving.",
+ sub:"Information Systems undergraduate at UTFPR and Project Advisor at Hï Tech Consultoria. Focused on building structured systems in Java and Python, relational SQL modeling, and operational workflow optimization.",
+ meta:[["UNIVERSITY","UTFPR · Information Systems"],["JUNIOR ENTERPRISE","Hï Tech · Project Advisor"],["CORE STACK","Java, Python, SQL, Git"],["ANALYTICAL BASE","OBMEP Award & Programming Club"]],
+ cta1:"Explore Architecture & Code",cta2:"Copy E-mail",copied:"Copied to clipboard",
+ hEng:"Engineering Domains",
+ dom:[["Backend Development","Architecture & Persistence","Building object-oriented applications with clean separation of concerns, relational database schema design, and disciplined version control.",["Java","Relational SQL","OOP / Design Patterns","REST APIs","Git & GitHub"]],
+ ["Automation & Data Engineering","Pipelines & Operational Efficiency","Developing Python scripts and tools to eliminate repetitive manual routines, sanitize high-volume datasets, and generate reliable analytical reports.",["Python","Pandas","Workflow Automation","ETL / Reporting","AI Integrations"]],
+ ["Algorithms & Data Structures","UTFPR Programming Club (CdP)","Continuous practice in competitive programming and asymptotic complexity analysis to solve computational problems under strict time and memory limits.",["Binary Search","Greedy Algorithms","Big-O Complexity","Olympiad Math (OBMEP)"]]],
+ hWork:"Technical Anatomy & Problem Solving",sWork:"Practical implementation samples combining domain modeling, data automation, and algorithmic optimization.",
+ tabs:{python:["Data Automation (Python)","Automated standardization and auditing for batch operational records.","Eliminates repetitive manual spreadsheet checks via vectorized validation"],
+  java:["Backend & SQL (Java)","Domain rule isolation and safe relational persistence with OOP design.","Decoupled domain service with explicit capacity validation"],
+  algo:["Algorithmic Optimization (CdP)","Binary Search on Answer Space for optimal workload partitioning in O(N log S).","Time complexity reduced from O(N²) to O(N log(Σw))"]},
+ fc:"Complexity",fp:"Paradigm",fx:"Practical Context",
+ ghT:"Recent Public Repositories",ghAll:"View full GitHub profile ↗",ghLoad:"Syncing public repositories via GitHub API...",ghFall:"Explore the projects and full history on the profile.",
+ hExp:"Professional Experience",
+ exp:[["Oct 2026 — Present","Hï Tech Consultoria","UTFPR Junior Enterprise · Curitiba, Brazil",[["Project Advisor","Nov 2026 — Present","Planning, technical requirements gathering, and tracking software solutions delivered by the junior enterprise. Direct involvement with version control, technical documentation, Scrum rituals, and stakeholder alignment. Represented Hï Tech at CwbJr ecosystem immersions."],["Project Trainee","Oct 2026 — Nov 2026","Intensive onboarding in Agile methodologies, scope and timeline structuring, client pain-point mapping, and technical proposal validation."]]],
+ ["Jan 2026 — Present","OAB PR","Curitiba, Brazil · On-site",[["Administrative Assistant (Apprentice)","","Structured operational datasets and produced analytical reports for internal process monitoring. Standardized high-volume digital documentation workflows focusing on data accuracy and cross-department efficiency."]]]],
+ hEdu:"Education & Honors",
+ edu:[["2026 — 2030","B.S. in Information Systems","Federal University of Technology – Paraná (UTFPR)","Focused on Software Engineering, Backend Development, and Systems Architecture. Active member at Hï Tech Consultoria and UTFPR Programming Club (CdP)."],
+ ["2023 — 2024","Technical Degree in Mechatronics, Robotics & Automation","SENAI PR","Technical background integrating programming logic, industrial process control, embedded systems, and analytical problem-solving."]],
+ cred:[["IMPA · MEC · MCTI (2025)","Honorable Mention — 20th Brazilian Math Olympiad (OBMEP)","National distinction recognizing strong mathematical logic and complex problem-solving performance."],
+ ["International Proficiency (May 2026)","Professional English — Duolingo English Test (Score 130)","Proficient in reading technical documentation, architectural writing, and collaborating with international engineering teams."]],
+ fcta:"Available for Software Engineering, Backend, or Automation internships in Curitiba (On-site/Hybrid) or Remote.",floc:"Curitiba, Paraná — Brazil"}};
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let lang="pt",tab="python",repos=null,reposState="load";
+try{const s=localStorage.getItem("lang");if(s==="en"||s==="pt")lang=s}catch(e){}
+
+function paintCode(){
+  $("code").innerHTML=esc(CODE[tab]).split("\n").map(l=>l.replace(/^(\s*)(#.*)$/,'$1<span class="cm">$2</span>')).join("\n");
+}
+function paintWork(){
+  const t=L[lang],o=t.tabs[tab],x=X[tab];
+  $("tabs").innerHTML=Object.keys(CODE).map(k=>`<button role="tab" data-t="${k}" aria-selected="${k===tab}">${esc(t.tabs[k][0])}</button>`).join("");
+  $("file").textContent={python:"data_pipeline.py",java:"ProjectAllocationService.java",algo:"binary_search_answer.py"}[tab];
+  $("tfoot").innerHTML=`<div><span>${t.fc}</span>${x.c}</div><div><span>${t.fp}</span>${x.p[lang]}</div><div><span>${t.fx}</span>${esc(o[1])} <i>${esc(o[2])}</i></div>`;
+  paintCode();
+}
+function paintRepos(){
+  const t=L[lang],el=$("repos");
+  if(reposState==="load"){el.textContent=t.ghLoad;return}
+  if(reposState==="fail"||!repos.length){el.innerHTML=`<span>${t.ghFall}</span>`;return}
+  el.innerHTML=repos.map(r=>`<a class="repo" href="${esc(r.html_url)}" target="_blank" rel="noopener"><b style="font-weight:500;font-family:Inter,sans-serif;font-size:14px;color:var(--t)">${esc(r.name)}</b><span>${esc(r.language||"—")} ↗</span></a>`).join("");
+}
+function render(){
+  const t=L[lang];
+  document.documentElement.lang=t.html;
+  $("lang").innerHTML=lang==="pt"?"[ <b>PT</b> / EN ]":"[ PT / <b>EN</b> ]";
+  $("nav").innerHTML=["overview","engineering","work","experience"].map((id,i)=>`<a href="#${id}">${t.nav[i]}</a>`).join("");
+  $("status").textContent=t.status;$("title").textContent=t.title;$("subtitle").textContent=t.sub;
+  $("meta").innerHTML=t.meta.map(m=>`<div><dt class="mono">${m[0]}</dt><dd>${esc(m[1])}</dd></div>`).join("");
+  $("cta1").textContent=t.cta1;$("cta2").textContent=t.cta2;$("cta3").textContent=t.cta2;
+  $("h-eng").textContent=t.hEng;
+  $("domains").innerHTML=t.dom.map(d=>`<div class="row"><div class="a"><strong>${esc(d[0])}</strong><small class="mono">${esc(d[1])}</small></div><div class="b">${esc(d[2])}</div><div class="c mono">${d[3].map(s=>`<span>${esc(s)}</span>`).join("")}</div></div>`).join("");
+  $("h-work").textContent=t.hWork;$("s-work").textContent=t.sWork;
+  $("gh-t").textContent=t.ghT;$("gh-all").textContent=t.ghAll;
+  paintWork();paintRepos();
+  $("h-exp").textContent=t.hExp;
+  $("jobs").innerHTML=t.exp.map(j=>`<div class="job"><time class="mono">${j[0]}</time><div><div class="co"><b>${esc(j[1])}</b>${esc(j[2])}</div>${j[3].map(r=>`<div class="role"><h4>${esc(r[0])}${r[1]?`<span>${r[1]}</span>`:""}</h4><p>${esc(r[2])}</p></div>`).join("")}</div></div>`).join("");
+  $("h-edu").textContent=t.hEdu;
+  $("edu").innerHTML=t.edu.map(e=>`<div class="it"><small class="mono">${e[0]}</small><strong>${esc(e[1])}</strong><small>${esc(e[2])}</small><p>${esc(e[3])}</p></div>`).join("");
+  $("cred").innerHTML=t.cred.map(e=>`<div class="it"><small class="mono">${esc(e[0])}</small><strong>${esc(e[1])}</strong><p>${esc(e[2])}</p></div>`).join("");
+  $("f-cta").textContent=t.fcta;$("f-loc").textContent=t.floc;
+}
+function copyMail(){
+  const done=()=>{const el=$("toast");el.textContent=L[lang].copied;el.classList.add("on");setTimeout(()=>el.classList.remove("on"),2000)};
+  const fb=()=>{const a=document.createElement("textarea");a.value=EMAIL;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();done()};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(EMAIL).then(done,fb);else fb();
+}
+$("cta2").onclick=$("cta3").onclick=copyMail;
+$("lang").onclick=()=>{lang=lang==="pt"?"en":"pt";try{localStorage.setItem("lang",lang)}catch(e){}render()};
+$("tabs").onclick=e=>{const b=e.target.closest("button");if(b){tab=b.dataset.t;paintWork()}};
+fetch("https://api.github.com/users/luan-paula/repos?sort=updated&per_page=4").then(r=>{if(!r.ok)throw 0;return r.json()})
+ .then(d=>{repos=d.filter(r=>!r.fork);reposState="ok";paintRepos()}).catch(()=>{reposState="fail";paintRepos()});
+render();
+</script>
+</body>
+</html>
